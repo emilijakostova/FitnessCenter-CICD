@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  web:
+    image: ekostova/fitnesscenter:latest
+    ports:
+      - "8080:80"
+    depends_on:
+      - mongo
+    environment:
+      - MongoConnection=mongodb://mongo:27017/FitnessCenterDb
+
+  mongo:
+    image: mongo:7
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=FitnessCenter@123
+    ports:
+      - "1433:1433"
+
+volumes:
+  mongo_data:
