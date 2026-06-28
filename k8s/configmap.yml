@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fitnesscenter-config
+  namespace: fitnesscenter
+data:
+  MongoConnection: "mongodb://mongo-service:27017/FitnessCenterDb"
+  SqlConnection: "Server=sqlserver-service;Database=FitnessCenter;User Id=sa;Password=FitnessCenter123;"

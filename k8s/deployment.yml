@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fitnesscenter-deployment
+  namespace: fitnesscenter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fitnesscenter
+  template:
+    metadata:
+      labels:
+        app: fitnesscenter
+    spec:
+      containers:
+        - name: fitnesscenter
+          image: ekostova/fitnesscenter:latest
+          ports:
+            - containerPort: 80
+          env:
+            - name: MongoConnection
+              valueFrom:
+                configMapKeyRef:
+                  name: fitnesscenter-config
+                  key: MongoConnection
+            - name: SqlConnection
+              valueFrom:
+                configMapKeyRef:
+                  name: fitnesscenter-config
+                  key: SqlConnection
